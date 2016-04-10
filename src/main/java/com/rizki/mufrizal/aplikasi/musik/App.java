@@ -6,6 +6,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -19,10 +21,14 @@ import javafx.stage.Stage;
  */
 public class App extends Application {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(App.class);
+
     private Stage stage;
 
     @Override
     public void start(Stage stage) throws Exception {
+
+        LOGGER.debug("load file fxml");
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/Musik.fxml"));
 
         Scene scene = new Scene(root);
