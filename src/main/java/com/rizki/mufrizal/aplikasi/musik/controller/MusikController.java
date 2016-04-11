@@ -8,6 +8,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -28,23 +30,47 @@ import javafx.stage.FileChooser;
  */
 public class MusikController {
 
-    private MediaPlayer mediaPlayer;
-    private Boolean repeat = false;
-
-    @SuppressWarnings("FieldMayBeFinal")
-    private TableColumn judulLagu = new TableColumn("Judul Lagu");
-    @SuppressWarnings("FieldMayBeFinal")
-    private TableColumn pathLagu = new TableColumn("Path Lagu");
-
     @FXML
     private Slider sliderMusik;
+
+    @FXML
+    private Button play;
+
+    @FXML
+    private Button pause;
+
+    @FXML
+    private Button stop;
+
+    @FXML
+    private Button previous;
+
+    @FXML
+    private Button next;
+
+    @FXML
+    private Button repeat;
+
+    @FXML
+    private Label repeatMusik;
 
     @FXML
     @SuppressWarnings("FieldMayBeFinal")
     private TableView<Musik> tabelMusik = new TableView<>();
 
     private FileChooser fileChooser;
+
     private final ObservableList<Musik> musiks = FXCollections.observableArrayList();
+
+    private MediaPlayer mediaPlayer;
+
+    private Boolean repeatBoolean = Boolean.FALSE;
+
+    @SuppressWarnings("FieldMayBeFinal")
+    private TableColumn judulLagu = new TableColumn("Judul Lagu");
+
+    @SuppressWarnings("FieldMayBeFinal")
+    private TableColumn pathLagu = new TableColumn("Path Lagu");
 
     @FXML
     public void initialize() {
@@ -55,6 +81,15 @@ public class MusikController {
         pathLagu.setCellValueFactory(new PropertyValueFactory<>("pathLagu"));
 
         tabelMusik.getColumns().addAll(judulLagu, pathLagu);
+
+        pause.setDisable(Boolean.TRUE);
+        stop.setDisable(Boolean.TRUE);
+        play.setDisable(Boolean.TRUE);
+        previous.setDisable(Boolean.TRUE);
+        next.setDisable(Boolean.TRUE);
+        repeat.setDisable(Boolean.TRUE);
+
+        repeatMusik.setText(String.valueOf(Boolean.FALSE));
     }
 
     @FXML
@@ -72,6 +107,11 @@ public class MusikController {
         }
 
         tabelMusik.setItems(musiks);
+        if (tabelMusik.getItems().size() > 0) {
+            play.setDisable(Boolean.FALSE);
+            previous.setDisable(Boolean.FALSE);
+            next.setDisable(Boolean.FALSE);
+        }
     }
 
     @FXML
@@ -85,12 +125,20 @@ public class MusikController {
         } else {
             jalankanMusik(selectedIndex);
         }
+
+        play.setDisable(Boolean.TRUE);
+        stop.setDisable(Boolean.FALSE);
+        pause.setDisable(Boolean.FALSE);
+        repeat.setDisable(Boolean.FALSE);
     }
 
     @FXML
     public void stopMusik(ActionEvent actionEvent) {
         if ((mediaPlayer != null && mediaPlayer.getStatus().equals(MediaPlayer.Status.PLAYING)) || (mediaPlayer != null && mediaPlayer.getStatus().equals(MediaPlayer.Status.PAUSED))) {
             mediaPlayer.stop();
+            play.setDisable(Boolean.FALSE);
+            stop.setDisable(Boolean.TRUE);
+            pause.setDisable(Boolean.TRUE);
         }
     }
 
@@ -98,6 +146,9 @@ public class MusikController {
     public void pauseMusik(ActionEvent actionEvent) {
         if (mediaPlayer != null && mediaPlayer.getStatus().equals(MediaPlayer.Status.PLAYING)) {
             mediaPlayer.pause();
+            play.setDisable(Boolean.FALSE);
+            stop.setDisable(Boolean.FALSE);
+            pause.setDisable(Boolean.TRUE);
         }
     }
 
@@ -131,7 +182,8 @@ public class MusikController {
     @FXML
     public void repeatMusik(ActionEvent actionEvent) {
         if ((mediaPlayer != null && mediaPlayer.getStatus().equals(MediaPlayer.Status.PLAYING)) || (mediaPlayer != null && mediaPlayer.getStatus().equals(MediaPlayer.Status.PAUSED)) || (mediaPlayer != null && mediaPlayer.getStatus().equals(MediaPlayer.Status.STOPPED))) {
-            repeat = !repeat;
+            repeatBoolean = !repeatBoolean;
+            repeatMusik.setText(String.valueOf(repeatBoolean));
         }
     }
 
@@ -146,7 +198,7 @@ public class MusikController {
         mediaPlayer.currentTimeProperty().addListener((observableValue, oldDuration, newDuration) -> {
             sliderMusik.setMax(mediaPlayer.getTotalDuration().toSeconds());
             sliderMusik.setValue(mediaPlayer.getCurrentTime().toSeconds());
-            if (repeat) {
+            if (repeatBoolean) {
                 mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
             } else {
                 mediaPlayer.setCycleCount(0);
