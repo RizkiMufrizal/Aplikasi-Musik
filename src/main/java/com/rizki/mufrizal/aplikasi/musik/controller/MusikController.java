@@ -29,6 +29,7 @@ import javafx.stage.FileChooser;
 public class MusikController {
 
     private MediaPlayer mediaPlayer;
+    private Boolean repeat = false;
 
     @SuppressWarnings("FieldMayBeFinal")
     private TableColumn judulLagu = new TableColumn("Judul Lagu");
@@ -127,6 +128,13 @@ public class MusikController {
         }
     }
 
+    @FXML
+    public void repeatMusik(ActionEvent actionEvent) {
+        if ((mediaPlayer != null && mediaPlayer.getStatus().equals(MediaPlayer.Status.PLAYING)) || (mediaPlayer != null && mediaPlayer.getStatus().equals(MediaPlayer.Status.PAUSED)) || (mediaPlayer != null && mediaPlayer.getStatus().equals(MediaPlayer.Status.STOPPED))) {
+            repeat = !repeat;
+        }
+    }
+
     public void jalankanMusik(int selectedIndex) {
         File file = new File(tabelMusik.getItems().get(selectedIndex).getPathLagu());
         String path = file.toURI().toASCIIString();
@@ -138,6 +146,11 @@ public class MusikController {
         mediaPlayer.currentTimeProperty().addListener((observableValue, oldDuration, newDuration) -> {
             sliderMusik.setMax(mediaPlayer.getTotalDuration().toSeconds());
             sliderMusik.setValue(mediaPlayer.getCurrentTime().toSeconds());
+            if (repeat) {
+                mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+            } else {
+                mediaPlayer.setCycleCount(0);
+            }
         });
     }
 
