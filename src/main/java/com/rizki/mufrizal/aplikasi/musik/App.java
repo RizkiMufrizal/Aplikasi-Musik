@@ -32,6 +32,7 @@ public class App extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/Musik.fxml"));
 
         Scene scene = new Scene(root);
+        scene.getStylesheets().add("/css/style.css");
 
         this.stage = stage;
 
