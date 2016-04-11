@@ -7,7 +7,7 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<VBox prefHeight="425.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.rizki.mufrizal.aplikasi.musik.controller.MusikController">
+<VBox prefHeight="469.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.rizki.mufrizal.aplikasi.musik.controller.MusikController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -50,18 +50,21 @@
     </MenuBar>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="417.0" prefWidth="640.0" VBox.vgrow="ALWAYS">
          <children>
-            <Button fx:id="play" layoutX="257.0" layoutY="62.0" mnemonicParsing="false" onAction="#playMusik" prefHeight="65.0" prefWidth="66.0" />
-            <Button fx:id="pause" layoutX="334.0" layoutY="62.0" mnemonicParsing="false" onAction="#pauseMusik" prefHeight="65.0" prefWidth="66.0" />
-            <Button fx:id="stop" layoutX="410.0" layoutY="61.0" mnemonicParsing="false" onAction="#stopMusik" prefHeight="65.0" prefWidth="66.0" />
-            <Button fx:id="next" layoutX="488.0" layoutY="61.0" mnemonicParsing="false" onAction="#nextMusik" prefHeight="65.0" prefWidth="66.0" />
-            <Button fx:id="previous" layoutX="103.0" layoutY="60.0" mnemonicParsing="false" onAction="#previousMusik" prefHeight="65.0" prefWidth="66.0" />
+            <Button fx:id="play" layoutX="218.0" layoutY="62.0" mnemonicParsing="false" onAction="#playMusik" prefHeight="65.0" prefWidth="66.0" />
+            <Button fx:id="pause" layoutX="295.0" layoutY="62.0" mnemonicParsing="false" onAction="#pauseMusik" prefHeight="65.0" prefWidth="66.0" />
+            <Button fx:id="stop" layoutX="371.0" layoutY="61.0" mnemonicParsing="false" onAction="#stopMusik" prefHeight="65.0" prefWidth="66.0" />
+            <Button fx:id="next" layoutX="449.0" layoutY="61.0" mnemonicParsing="false" onAction="#nextMusik" prefHeight="65.0" prefWidth="66.0" />
+            <Button fx:id="previous" layoutX="64.0" layoutY="60.0" mnemonicParsing="false" onAction="#previousMusik" prefHeight="65.0" prefWidth="66.0" />
             <Label layoutX="254.0" layoutY="14.0" text="Daftar Musik">
                <font>
                   <Font name="System Bold" size="19.0" />
                </font></Label>
-            <TableView fx:id="tabelMusik" layoutX="20.0" layoutY="169.0" prefHeight="206.0" prefWidth="591.0" />
-            <Button fx:id="browse" layoutX="180.0" layoutY="61.0" mnemonicParsing="false" onAction="#browseMusik" prefHeight="65.0" prefWidth="66.0" />
-            <Slider fx:id="sliderMusik" layoutX="17.0" layoutY="135.0" prefHeight="16.0" prefWidth="591.0" />
+            <TableView fx:id="tabelMusik" layoutX="25.0" layoutY="216.0" prefHeight="206.0" prefWidth="591.0" />
+            <Button fx:id="browse" layoutX="141.0" layoutY="61.0" mnemonicParsing="false" onAction="#browseMusik" prefHeight="65.0" prefWidth="66.0" />
+            <Slider fx:id="sliderMusik" layoutX="22.0" layoutY="182.0" prefHeight="16.0" prefWidth="591.0" />
+            <Button fx:id="repeat" layoutX="523.0" layoutY="61.0" mnemonicParsing="false" onAction="#repeatMusik" prefHeight="65.0" prefWidth="62.0" />
+            <Label layoutX="25.0" layoutY="147.0" text="Repeat : " />
+            <Label fx:id="repeatMusik" layoutX="84.0" layoutY="147.0" prefHeight="15.0" prefWidth="235.0" />
          </children>
     </AnchorPane>
   </children>
